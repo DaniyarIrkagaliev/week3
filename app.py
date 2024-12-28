@@ -16,13 +16,18 @@ def after_request(response):
 # Маршрут для обработки запросов к /result4/
 @app.route('/result4/', methods=['GET', 'POST', 'PUT', 'DELETE'])
 def result():
+    list_from_dict = list(request.headers)
+    x_t = list_from_dict[0][0]
+
+    x_test_value = request.headers.get(x_t)
+    print(x_test_value)
     # Получаем параметры из строки запроса
     query_params = request.args.to_dict()
 
     # Формируем JSON-ответ
     response_data = {
         'message': 'itmo413764',
-        'x-result': query_params.get('x-test'),
+        'x-result': x_test_value,
         'x-body': query_params.get('body')
     }
 
